@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Strike Rate Of Different Player Over Year</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+        </script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <style>
+            #container .highcharts-subtitle a {
+                text-decoration: underline;
+            }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                overflow: hidden;
+                background-color: #333;
+                font-family: Arial;
+            }
+
+            .navbar a {
+                float: left;
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            .navbar a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+        
+        </style>
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="../../../index.html">Home</a>
+            <a href="./problem1.html">problem1</a>
+            <a href="./problem2.html">problem2</a>
+            <a href="./problem3.html">problem3</a>
+            <a href="./problem4.html">problem4</a>
+            <a href="./problem5.html">problem5</a>
+            <a href="./problem6.html">problem6</a>
+            <a href="./problem8.html">problem8</a>
+            <a href="./problem9.html">problem9</a>
+        </div>
+        <br>
+        <div id="container" style="width: 100%; height: 600px; margin: 0 auto"></div>
+        <script language="JavaScript">
+            function getData(jsonFile, cb) {
+                fetch(`../${jsonFile}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        cb(data);
+                    });
+            }
+
+            function cb(data) {
+                $(document).ready(function () {
+                    const years = Object.keys(data);
+                    const listofBatsmanName=[];
+
+                    years.forEach((year)=>{
+                        Object.keys(data[year]).forEach((name)=>{
+                            if(listofBatsmanName.includes(name)===false){
+                                listofBatsmanName.push(name);
+                            }
+                        });
+                    })
+
+                    const seriesData= listofBatsmanName.reduce((acc,batsmanName)=>{
+                        const series = {
+                            name : batsmanName,
+                            data: years.map((year)=>{
+                                return (data[year][batsmanName] || 0);
+                            }) 
+                        }
+                        acc.push(series);
+                        return acc;
+                    },[])
+
+                    const chartOptions = {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Strike Rate Of Different Player Over Year'
+                        },
+                        subtitle: {
+                            text: 'Source: <a href="https://www.kaggle.com/datasets/manasgarg/ipl" target="_blank">https://www.kaggle.com/datasets/manasgarg/ipl</a>'
+                        },
+                        xAxis: {
+                            categories: years,
+                            crosshair: true,
+                            title:{
+                                text: 'Years'
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Strike Rate'
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series:seriesData
+                    };
+
+                    $('#container').highcharts(chartOptions);
+                });
+            }
+
+            getData('7-strikerate-batsman-for-each-season.json', cb)
+        </script>
+    </body>
+</html>

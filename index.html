@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <style>
+            body {
+                background-color: #f0eee9;
+                font-family: Arial, sans-serif;
+            }
+            h1 {
+                text-align: center;
+                color: #2f2f2f;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            li {
+                margin: 10px;
+                padding: 10px;
+                background-color: #bfbabe;
+                border-radius: 5px;
+                width: 100%;
+                min-width: 200px;
+                max-width: 400px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            a {
+                color: #2f2f2f;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 18px;
+                text-align: center;
+                display: block;
+            }
+            li:hover {
+                background-color: #2f2f2f;
+            }
+            li:hover a {
+                color: #bfbabe;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1>IPL Project Graphs</h1>
+        <ul>
+            <li onclick="window.location.href='./src/public/charts/problem1.html'"><a>Number Of Matches Each Year</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem2.html'"><a>Matches Won Per Team Per Year</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem3.html'"><a>Extra Runs Conceded By Team in Year 2016</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem4.html'"><a>Top 10 Economical Bowler in 2015</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem5.html'"><a>Count Of times each team won the toss and also won the match</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem6.html'"><a>Player With Most Man Of the Match</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem7.html'"><a>Strike Rate Of Different Player Over Year</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem8.html'"><a>Highest Dismisal Of Player by Bowler</a></li>
+            <li onclick="window.location.href='./src/public/charts/problem9.html'"><a>Economical Bowler In Super Over</a></li>
+        </ul>
+
+    </body>
+</html>

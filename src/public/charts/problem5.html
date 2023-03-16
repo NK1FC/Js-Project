@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Count Toss And Match Won</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+        </script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <style>
+            #container .highcharts-subtitle a {
+                text-decoration: underline;
+            }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                overflow: hidden;
+                background-color: #333;
+                font-family: Arial;
+            }
+
+            .navbar a {
+                float: left;
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            .navbar a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+        
+        </style>
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="../../../index.html">Home</a>
+            <a href="./problem1.html">problem1</a>
+            <a href="./problem2.html">problem2</a>
+            <a href="./problem3.html">problem3</a>
+            <a href="./problem4.html">problem4</a>
+            <a href="./problem6.html">problem6</a>
+            <a href="./problem7.html">problem7</a>
+            <a href="./problem8.html">problem8</a>
+            <a href="./problem9.html">problem9</a>
+        </div>
+        <br>
+        <div id="container" style="width: 100%; height: 600px; margin: 0 auto"></div>
+        <script language="JavaScript">
+            function getData(jsonFile, cb) {
+                fetch(`../${jsonFile}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        cb(data);
+                    });
+            }
+
+            function cb(data) {
+                $(document).ready(function () {
+                    const chartOptions = {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Count Of times each team won the toss and also won the match'
+                        },
+                        subtitle: {
+                            text: 'Source: <a href="https://www.kaggle.com/datasets/manasgarg/ipl" target="_blank">https://www.kaggle.com/datasets/manasgarg/ipl</a>'
+                        },
+                        xAxis: {
+                            categories: Object.keys(data),
+                            crosshair: true,
+                            title:{
+                                text: 'Teams'
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Count Of Matches'
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series:[ {
+                            name: 'Matches',
+                            data: Object.values(data)
+                        }]
+                    };
+
+                    $('#container').highcharts(chartOptions);
+                });
+            }
+
+            getData('5-count-each-team-won-the-toss-and-the-match.json', cb)
+        </script>
+    </body>
+</html>
